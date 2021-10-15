@@ -9,10 +9,10 @@ EXPOSE 80
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 WORKDIR /src
-COPY ["JWTAuthDemo/TestTask.csproj", "JWTAuthDemo/"]
-RUN dotnet restore "JWTAuthDemo/TestTask.csproj"
+COPY ["TestTask/TestTask.csproj", "TestTask/"]
+RUN dotnet restore "TestTask/TestTask.csproj"
 COPY . .
-WORKDIR "/src/JWTAuthDemo"
+WORKDIR "/src/TestTask"
 RUN dotnet build "TestTask.csproj" -c Release -o /app/build
 
 FROM build AS publish
