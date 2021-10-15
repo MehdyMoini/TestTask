@@ -50,7 +50,7 @@ namespace TestTask.Controllers
     
 
         [HttpPost("Register")]
-        
+        [Authorize]
         public IActionResult Register([FromBody]User user)
         {
             if (!ModelState.IsValid)

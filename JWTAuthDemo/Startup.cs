@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Hangfire;
 
 namespace TestTask
 {
@@ -29,7 +30,8 @@ namespace TestTask
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
+            services.AddHangfire(x => x.UseSqlServerStorage("Server=.;Database=Hangfire;User Id=sa;Password=12345678;"));
+            services.AddHangfireServer();
             services.AddSingleton<IJWTAuthManager, JWTAuthManager>();
 
             services.AddControllers();
@@ -92,7 +94,7 @@ namespace TestTask
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseHangfireDashboard();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
