@@ -15,6 +15,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Hangfire;
+using TestTask.ModelsAndServices;
 
 namespace TestTask
 {
@@ -33,7 +34,7 @@ namespace TestTask
             services.AddHangfire(x => x.UseSqlServerStorage("Server=.;Database=Hangfire;User Id=sa;Password=12345678;"));
             services.AddHangfireServer();
             services.AddSingleton<IJWTAuthManager, JWTAuthManager>();
-
+            services.AddSingleton(sp => RabbitHutch.CreateBus("Localhost"));
             services.AddControllers();
             services.AddSwaggerGen(option =>
             {
